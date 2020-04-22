@@ -16,7 +16,8 @@ module.exports = (api) => {
         development: isDevelopment,
         useBuiltIns: true
       }
-    ]
+    ],
+    "@babel/preset-typescript"
   ]
 
   const plugins = [
