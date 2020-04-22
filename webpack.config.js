@@ -1,12 +1,12 @@
 const path = require('path')
-const isProduction = process.env.NODE_ENV === "production"
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
+const isProduction = process.env.NODE_ENV === "production"
 const mode = isProduction ? "production" : "development"
 
 const output = {
   path: path.resolve(__dirname, "./public"),
-  publicPath: "/assets/",
-  filename: "bundle.js"
+  filename: "bundle-[hash].js"
 }
 
 const babelLoader = {
@@ -67,6 +67,10 @@ const loaders = [
   sassLoader
 ]
 
+const plugins = [
+  new HtmlWebpackPlugin({ template: "./index.html" })
+]
+
 const resolve = {
   extensions: [".js", ".jsx", ".ts", ".tsx"],
   modules: [
@@ -85,11 +89,12 @@ const devServer = {
 
 module.exports = {
   mode,
-  entry: "./src/index.js",
+  entry: "./src/index.tsx",
   output,
   module: {
     rules: loaders
   },
+  plugins,
   resolve,
   devServer
 }
